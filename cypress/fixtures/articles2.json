@@ -1,0 +1,19 @@
+{
+  "article":{
+    "slug":"This-is-a-title-1658501016485-66697",
+    "title":"This is a title 1658501016485",
+    "description":"This is a description 1658501016485",
+    "body":"This is a body of the Article 1658501016485",
+    "tagList":[],
+    "createdAt":"2022-07-22T14:43:38.942Z",
+    "updatedAt":"2022-07-22T14:43:38.942Z",
+    "favorited":true,
+    "favoritesCount":2,
+    "author":{
+      "username":"Pocu46",
+      "bio":null,
+      "image":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVLqfekg_kitC_QJ5kgBUTh2tt5EIcxEnQDQ&usqp=CAU",
+      "following":false
+    }
+  }
+}
