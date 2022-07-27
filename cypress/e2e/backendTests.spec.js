@@ -27,7 +27,7 @@ describe('Tests with backend', () => {
     })
   })
 
-  it.only('intercepting and modifying the request and response', () => {
+  it('intercepting and modifying the request and response', () => {
     let time = Date.now()
     cy.intercept('POST', '**/articles', (req) => {                    //intercept request
       req.body.article.description = `This is a description ${time} modified`
@@ -80,6 +80,50 @@ describe('Tests with backend', () => {
 
     cy.get('app-article-list button').eq(0).click().should('contain', '2')
 
+  })
+
+  it.only('delete a new article', () => {
+
+    const userCredentials = {
+      "user": {
+        "email": "660000@ukr.net",
+        "password": "horek190689"
+      }
+    }
+
+    const bodyRequest = {
+      "article": {
+        "tagList": [],
+        "title": "Request from API",
+        "description": "API testing is easy",
+        "body": "Angular is cool"
+      }
+    }
+
+    cy.request('POST', 'https://api.realworld.io/api/users/login', userCredentials)
+      .its('body').then(body => {
+      const token = body.user.token
+
+      cy.request({
+        url: 'https://conduit.productionready.io/api/articles/',
+        headers: {'Authorization': 'Token ' + token},
+        method: 'POST',
+        body: bodyRequest
+      }).then(response => {
+        expect(response.status).to.equal(200)
+      })
+      cy.contains('Global Feed').click()
+      cy.get('.article-preview').first().click()
+      cy.get('.article-actions').contains('Delete Article').click()
+
+      cy.request({
+        url: 'https://conduit.productionready.io/api/articles?limit=10&offset=0',
+        headers: {'Authorization': 'Token ' + token},
+        method: 'GET'
+      }).its('body').then(body => {
+        expect(body.articles[0].title).not.to.equal('Request from API')
+      })
+    })
   })
 
 })
