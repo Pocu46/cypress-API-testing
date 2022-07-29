@@ -37,9 +37,29 @@
 // }
 
 Cypress.Commands.add('loginToApplication', () => {
-  cy.visit('/login')
-  cy.get('[placeholder="Email"]').type('660000@ukr.net')
-  cy.get('[placeholder="Password"]').type('horek190689')
-  // cy.get('form').submit()
-  cy.get('button[type="submit"]').click()
+
+  const userCredentials = {
+    "user": {
+      "email": "660000@ukr.net",
+      "password": "horek190689"
+    }
+  }
+
+  cy.request('POST', 'https://conduit.productionready.io/api/users/login', userCredentials)
+    .its('body').then(body => {
+      const token = body.user.token
+      cy.wrap(token).as('token')
+      cy.visit('/', {
+        onBeforeLoad(win) {
+          win.localStorage.setItem('jwtToken', token)
+        }
+      })
+
+  })
+
+  // cy.visit('/login')
+  // cy.get('[placeholder="Email"]').type('660000@ukr.net')
+  // cy.get('[placeholder="Password"]').type('horek190689')
+  // // cy.get('form').submit()
+  // cy.get('button[type="submit"]').click()
 })

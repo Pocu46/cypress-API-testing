@@ -82,14 +82,7 @@ describe('Tests with backend', () => {
 
   })
 
-  it.only('delete a new article', () => {
-
-    const userCredentials = {
-      "user": {
-        "email": "660000@ukr.net",
-        "password": "horek190689"
-      }
-    }
+  it('delete a new article', () => {
 
     const bodyRequest = {
       "article": {
@@ -100,9 +93,7 @@ describe('Tests with backend', () => {
       }
     }
 
-    cy.request('POST', 'https://api.realworld.io/api/users/login', userCredentials)
-      .its('body').then(body => {
-      const token = body.user.token
+    cy.get('@token').then(token => {
 
       cy.request({
         url: 'https://conduit.productionready.io/api/articles/',
