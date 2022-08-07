@@ -40,12 +40,12 @@ Cypress.Commands.add('loginToApplication', () => {
 
   const userCredentials = {
     "user": {
-      "email": "660000@ukr.net",
-      "password": "horek190689"
+      "email": Cypress.env('username'),
+      "password": Cypress.env('password')
     }
   }
 
-  cy.request('POST', 'https://conduit.productionready.io/api/users/login', userCredentials)
+  cy.request('POST', Cypress.env('apiUrl')+'api/users/login', userCredentials)
     .its('body').then(body => {
       const token = body.user.token
       cy.wrap(token).as('token')
