@@ -1,0 +1,195 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 5,
+    "passes": 2,
+    "pending": 0,
+    "failures": 3,
+    "start": "2022-08-07T15:49:26.512Z",
+    "end": "2022-08-07T15:49:47.983Z",
+    "duration": 21471,
+    "testsRegistered": 5,
+    "passPercent": 40,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "ef134129-5ffa-45c9-8f76-a13b78d1e106",
+      "title": "",
+      "fullFile": "cypress\\e2e\\backendTests.spec.js",
+      "file": "cypress\\e2e\\backendTests.spec.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "d25cd516-cc91-4a4e-a702-7884ffdb82a5",
+          "title": "Tests with backend",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "verify correct request and response",
+              "fullTitle": "Tests with backend verify correct request and response",
+              "timedOut": null,
+              "duration": 5782,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.intercept('POST', '**/articles').as('postArticles');\nlet time = Date.now();\ncy.contains('New Article').click();\ncy.get('[formcontrolname=\"title\"]').type(`This is a title ${time}`);\ncy.get('[formcontrolname=\"description\"]').type(`This is a description ${time}`);\ncy.get('[formcontrolname=\"body\"]').type(`This is a body of the Article ${time}`);\ncy.contains('Publish Article').click();\ncy.wait('@postArticles');\ncy.get('@postArticles').then(xhr => {\n  var _xhr$response;\n  console.log(xhr);\n  expect(xhr === null || xhr === void 0 ? void 0 : (_xhr$response = xhr.response) === null || _xhr$response === void 0 ? void 0 : _xhr$response.statusCode).to.equal(200);\n  expect(xhr.request.body.article.body).to.equal(`This is a body of the Article ${time}`);\n  expect(xhr.response.body.article.description).to.equal(`This is a description ${time}`);\n});",
+              "err": {
+                "message": "AssertionError: expected 307 to equal 200",
+                "estack": "AssertionError: expected 307 to equal 200\n    at Context.eval (http://localhost:4200/__cypress/tests?p=cypress\\e2e\\backendTests.spec.js:124:164)",
+                "diff": "- 307\n+ 200\n"
+              },
+              "uuid": "9230f84c-6624-4af9-ba75-5078be2f1907",
+              "parentUUID": "d25cd516-cc91-4a4e-a702-7884ffdb82a5",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "intercepting and modifying the request and response",
+              "fullTitle": "Tests with backend intercepting and modifying the request and response",
+              "timedOut": null,
+              "duration": 6006,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "let time = Date.now();\ncy.intercept('POST', '**/articles', req => {\n  //intercept request\n  req.body.article.description = `This is a description ${time} modified`;\n}).as('postArticles');\ncy.intercept('POST', '**/articles', req => {\n  //intercept response to the server\n  req.reply(res => {\n    expect(res.body.article.description).to.equal(`This is a description ${time}`);\n    res.body.article.description = \"This is a description ${time} modified 2\";\n  });\n}).as('postArticles');\ncy.contains('New Article').click();\ncy.get('[formcontrolname=\"title\"]').type(`This is a title ${time}`);\ncy.get('[formcontrolname=\"description\"]').type(`This is a description ${time}`);\ncy.get('[formcontrolname=\"body\"]').type(`This is a body of the Article ${time}`);\ncy.contains('Publish Article').click();\ncy.wait('@postArticles');\ncy.get('@postArticles').then(xhr => {\n  var _xhr$response2;\n  console.log(xhr);\n  expect(xhr === null || xhr === void 0 ? void 0 : (_xhr$response2 = xhr.response) === null || _xhr$response2 === void 0 ? void 0 : _xhr$response2.statusCode).to.equal(200);\n  expect(xhr.request.body.article.body).to.equal(`This is a body of the Article ${time}`);\n  expect(xhr.response.body.article.description).to.equal(`This is a description ${time} modified`);\n});",
+              "err": {
+                "message": "TypeError: Cannot read properties of undefined (reading 'description')",
+                "estack": "TypeError: Cannot read properties of undefined (reading 'description')\n    at eval (http://localhost:4200/__cypress/tests?p=cypress\\e2e\\backendTests.spec.js:138:33)",
+                "diff": null
+              },
+              "uuid": "171f8a79-2221-4b98-9cc6-6978b5bafcad",
+              "parentUUID": "d25cd516-cc91-4a4e-a702-7884ffdb82a5",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should gave tags with routing object",
+              "fullTitle": "Tests with backend should gave tags with routing object",
+              "timedOut": null,
+              "duration": 1747,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.get('.tag-list').should('contain', 'cypress').and('contain', 'automation').and('contain', 'testing');",
+              "err": {},
+              "uuid": "dea924e9-7a08-4ee0-bb8c-f23ab91fbd21",
+              "parentUUID": "d25cd516-cc91-4a4e-a702-7884ffdb82a5",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "verify global feed likes count",
+              "fullTitle": "Tests with backend verify global feed likes count",
+              "timedOut": null,
+              "duration": 2399,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.intercept('GET', '**/articles/feed*', {\n  \"articles\": [],\n  \"articlesCount\": 0\n});\ncy.intercept('GET', '**/articles*', {\n  fixture: 'articles.json'\n});\ncy.contains('Global Feed').click();\ncy.get('app-article-list button').then(listOfButtons => {\n  expect(listOfButtons[0]).to.contain('1');\n  expect(listOfButtons[1]).to.contain('5');\n});\ncy.fixture('articles').then(file => {\n  const articleLink = file.articles[0].slug;\n  cy.intercept('POST', '**/articles/' + articleLink + '/favorite', file);\n});\ncy.get('app-article-list button').eq(0).click().should('contain', '2');",
+              "err": {},
+              "uuid": "d8a73838-fe1e-41db-a708-5be9004e64fe",
+              "parentUUID": "d25cd516-cc91-4a4e-a702-7884ffdb82a5",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "delete a new article",
+              "fullTitle": "Tests with backend delete a new article",
+              "timedOut": null,
+              "duration": 5053,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "const bodyRequest = {\n  \"article\": {\n    \"tagList\": [],\n    \"title\": \"Request from API\",\n    \"description\": \"API testing is easy\",\n    \"body\": \"Angular is cool\"\n  }\n};\ncy.get('@token').then(token => {\n  cy.request({\n    url: Cypress.env('apiUrl') + 'api/articles/',\n    headers: {\n      'Authorization': 'Token ' + token\n    },\n    method: 'POST',\n    body: bodyRequest\n  }).then(response => {\n    expect(response.status).to.equal(200);\n  });\n  cy.contains('Global Feed').click();\n  cy.get('.article-preview').first().click();\n  cy.get('.article-actions').contains('Delete Article').click();\n  cy.request({\n    url: Cypress.env('apiUrl') + 'api/articles?limit=10&offset=0',\n    headers: {\n      'Authorization': 'Token ' + token\n    },\n    method: 'GET'\n  }).its('body').then(body => {\n    expect(body.articles[0].title).not.to.equal('Request from API');\n  });\n});",
+              "err": {
+                "message": "AssertionError: expected 'Request from API' to not equal 'Request from API'",
+                "estack": "AssertionError: expected 'Request from API' to not equal 'Request from API'\n    at Context.eval (http://localhost:4200/__cypress/tests?p=cypress\\e2e\\backendTests.spec.js:209:47)",
+                "diff": ""
+              },
+              "uuid": "14457453-b64f-47a7-8d9a-a1dad05389e9",
+              "parentUUID": "d25cd516-cc91-4a4e-a702-7884ffdb82a5",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "dea924e9-7a08-4ee0-bb8c-f23ab91fbd21",
+            "d8a73838-fe1e-41db-a708-5be9004e64fe"
+          ],
+          "failures": [
+            "9230f84c-6624-4af9-ba75-5078be2f1907",
+            "171f8a79-2221-4b98-9cc6-6978b5bafcad",
+            "14457453-b64f-47a7-8d9a-a1dad05389e9"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 20987,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/results/mochawesome",
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "6.2.0"
+    }
+  }
+}

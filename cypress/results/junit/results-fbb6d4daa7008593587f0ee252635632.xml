@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="21.4710" tests="5" failures="3">
+  <testsuite name="Root Suite" timestamp="2022-08-07T15:49:26" tests="0" file="cypress\e2e\backendTests.spec.js" time="0.0000" failures="0">
+  </testsuite>
+  <testsuite name="Tests with backend" timestamp="2022-08-07T15:49:26" tests="5" time="21.4210" failures="3">
+    <testcase name="Tests with backend verify correct request and response" time="0.0000" classname="verify correct request and response">
+      <failure message="expected 307 to equal 200" type="AssertionError"><![CDATA[AssertionError: expected 307 to equal 200
+    at Context.eval (http://localhost:4200/__cypress/tests?p=cypress\e2e\backendTests.spec.js:124:164)]]></failure>
+    </testcase>
+    <testcase name="Tests with backend intercepting and modifying the request and response" time="0.0000" classname="intercepting and modifying the request and response">
+      <failure message="Cannot read properties of undefined (reading &apos;description&apos;)" type="TypeError"><![CDATA[TypeError: Cannot read properties of undefined (reading 'description')
+    at eval (http://localhost:4200/__cypress/tests?p=cypress\e2e\backendTests.spec.js:138:33)]]></failure>
+    </testcase>
+    <testcase name="Tests with backend should gave tags with routing object" time="1.7470" classname="should gave tags with routing object">
+    </testcase>
+    <testcase name="Tests with backend verify global feed likes count" time="2.3990" classname="verify global feed likes count">
+    </testcase>
+    <testcase name="Tests with backend delete a new article" time="0.0000" classname="delete a new article">
+      <failure message="expected &apos;Request from API&apos; to not equal &apos;Request from API&apos;" type="AssertionError"><![CDATA[AssertionError: expected 'Request from API' to not equal 'Request from API'
+    at Context.eval (http://localhost:4200/__cypress/tests?p=cypress\e2e\backendTests.spec.js:209:47)]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>
